@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NxBRE_BlogSample", "NxBRE_BlogSample\NxBRE_BlogSample.csproj", "{DA197783-DD8C-48FC-8386-92EC2C4977CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NxBRE_BlogSample.After", "NxBRE_BlogSample.After\NxBRE_BlogSample.After.csproj", "{4FEFF33E-E7C7-46B4-8F3D-88E273F56917}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA197783-DD8C-48FC-8386-92EC2C4977CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA197783-DD8C-48FC-8386-92EC2C4977CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA197783-DD8C-48FC-8386-92EC2C4977CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA197783-DD8C-48FC-8386-92EC2C4977CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FEFF33E-E7C7-46B4-8F3D-88E273F56917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FEFF33E-E7C7-46B4-8F3D-88E273F56917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FEFF33E-E7C7-46B4-8F3D-88E273F56917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FEFF33E-E7C7-46B4-8F3D-88E273F56917}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

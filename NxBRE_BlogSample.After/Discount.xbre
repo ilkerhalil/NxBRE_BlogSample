@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xBusinessRules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xbusinessRules.xsd">
+
+  <Decimal id="10YearMemberDiscount" value="0.03"/>
+  <Decimal id="5YearMemberDiscount" value="0.02"/>
+  <Decimal id="BirthDataDiscount" value="0.01"/>
+
+  <ObjectLookup id="Customer" objectId="currentCustomer" member="Age"/>
+  <Decimal id="age60" value="60"/>
+  <Decimal id="Age60AtLeast60Discount" value="0.12"/>
+  <Logic>
+    <If>
+      <And>
+        <GreaterThanEqualTo leftId="currentCustomer" rightId="age60"/>
+      </And>
+      <Do>
+        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <Argument type="Decimal"/>
+        </ObjectLookup>
+        <ObjectLookup id="DiscountSum" type="NxBRE.Util.Maths" member="Sum">
+          <Argument valueId="Age60AtLeast60Discount"/>
+          <Argument valueId="currentSale"/>
+        </ObjectLookup>
+      </Do>
+    </If>
+  </Logic>
+  <Decimal id="VeteranDiscount" value="0.05"/>
+  <Logic>
+    <If>
+      <And>
+        <IsTrue valueId="currentCustomer"/>
+      </And>
+      <Do>
+        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <Argument type="Decimal"/>
+        </ObjectLookup>
+        <Increment id="VeteranDiscount"/>
+      </Do>
+    </If>
+  </Logic>
+  <Decimal id="IsCasualtyKinDiscount" value="0.07"/>
+  <Logic>
+    <If>
+      <And>
+        <IsTrue valueId="currentCustomer"/>
+      </And>
+      <Do>
+        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <Argument type="Decimal"/>
+        </ObjectLookup>
+        <Increment id="IsCasualtyKinDiscount"/>
+      </Do>
+    </If>
+  </Logic>
+  <Decimal id="TotalIncome10000" value="10000"/>
+  <Decimal id="TotalIncome50000" value="10000"/>
+  <Decimal id="TotalIncome100000" value="10000"/>
+  <Decimal id="TotalIncome10000Discount" value="0.05"/>
+  <Decimal id="TotalIncome50000Discount" value="0.07"/>
+  <Decimal id="TotalIncome100000Discount" value="0.1"/>
+  <Logic>
+    <If>
+      <And>
+        <GreaterThanEqualTo leftId="currentCustomer" rightId="TotalIncome10000"/>
+      </And>
+      <Do>
+        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <Argument type="Decimal"/>
+        </ObjectLookup>
+        <Increment id="TotalIncome10000Discount"/>
+      </Do>
+    </If>
+    <ElseIf>
+      <And>
+        <GreaterThanEqualTo leftId="currentCustomer" rightId="TotalIncome50000"/>
+      </And>
+      <Do>
+        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <Argument type="Decimal"/>
+        </ObjectLookup>
+        <Increment id="TotalIncome50000Discount"/>
+      </Do>
+    </ElseIf>
+    <ElseIf>
+      <And>
+        <GreaterThanEqualTo leftId="currentCustomer" rightId="TotalIncome100000"/>
+      </And>
+      <Do>
+        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <Argument type="Decimal"/>
+        </ObjectLookup>
+        <Increment id="TotalIncome100000Discount"/>
+      </Do>
+    </ElseIf>
+  </Logic>
+
+
+</xBusinessRules>
