@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NxBRE.FlowEngine;
 using NxBRE.FlowEngine.Factories;
 using NxBRE.FlowEngine.IO;
@@ -16,8 +14,8 @@ namespace NxBRE_BlogSample.After
     {
         private static void Main(string[] args)
         {
-
-            foreach (var customer in CreateSampleData())
+            List<Sale> sales = new List<Sale>();
+            foreach (var customer in CreateSampleData().OrderBy(or => or.Age))
             {
 
                 var sale = new Sale
@@ -27,7 +25,7 @@ namespace NxBRE_BlogSample.After
                 var calculateDiscount = new CalculateDiscount(sale);
                 calculateDiscount.Calcutale();
                 Console.WriteLine(sale);
-
+                //Console.WriteLine($"Customer => Full Name: {customer.FullName} , Age: {customer.Age}  Discount =>  {sale.Discount} ");
             }
             Console.ReadKey();
         }
@@ -36,6 +34,17 @@ namespace NxBRE_BlogSample.After
         {
             return new List<Customer>
             {
+                new Customer
+                {
+                    CreatedDate = new DateTime(2015,3,1)
+                    ,IsCasualtyKin = false
+                    ,IsVeteran = false
+                    ,Name = "Burcu"
+                    ,SurName = "Türer"
+                    ,TotalSale = 5000
+                    ,BirthDate = new DateTime(1995,8,15)
+
+                },
                 new Customer
                 {
                     CreatedDate = new DateTime(2015,3,1)
@@ -64,6 +73,16 @@ namespace NxBRE_BlogSample.After
                 , IsVeteran = false
                 , Name = "Murat"
                 , SurName = "Güler"
+                , TotalSale = 0m
+                ,BirthDate = new DateTime(1976,4,28)
+            },
+            new Customer
+            {
+                CreatedDate = DateTime.Now
+                , IsCasualtyKin = false
+                , IsVeteran = false
+                , Name = "Şakir"
+                , SurName = "AltınMakas"
                 , TotalSale = 0m
                 ,BirthDate = new DateTime(1980,4,22)
             },
@@ -132,14 +151,36 @@ namespace NxBRE_BlogSample.After
             if (_flowEngine == null) throw new Exception("BRE Not Properly Initialized!");
             _flowEngine.RuleContext.SetObject("currentSale", sale);
             _flowEngine.RuleContext.SetObject("currentCustomer", sale.Customer);
+            _flowEngine.RuleContext.SetFactory("AddRule",new BRERuleFactory(AddRule));
+
+
+
 
         }
+        public object AddRule(IBRERuleContext aBrc, IDictionary aMap, object aStep)
+        {
+            //string ruleName
+            var sale = aBrc.GetObject("currentSale") as Sale;
+            var ruleName = (string)Reflection.CastValue(aMap["ruleName"], typeof(string));
+            if(!string.IsNullOrEmpty(ruleName)) sale.DiscountList.Add(ruleName);
+            return sale;
+        }
 
-       
+
+        private static void _flowEngine_ResultHandlers(object sender, IBRERuleResult ruleResult)
+        {
+            Console.WriteLine($"Rule Set ");
+        }
 
         public void Calcutale()
         {
-            if (!_flowEngine.Process()) throw new Exception();
+            if (!_flowEngine.Process("Age_60_Rule")) throw new Exception();
+            if (!_flowEngine.Process("Veteran_Rule")) throw new Exception();
+            if (!_flowEngine.Process("Casualty_Kin_Rule")) throw new Exception();
+            if (!_flowEngine.Process("Total_Income_Greater_10000_Rule")) throw new Exception();
+            if (!_flowEngine.Process("Total_Income_Greater_50000_Rule")) throw new Exception();
+            if (!_flowEngine.Process("Total_Income_Greater_100000_Rule")) throw new Exception();
+            //Console.WriteLine(sale);
         }
     }
 }

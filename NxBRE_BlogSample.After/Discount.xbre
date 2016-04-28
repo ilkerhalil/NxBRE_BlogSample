@@ -3,96 +3,162 @@
 
   <Decimal id="10YearMemberDiscount" value="0.03"/>
   <Decimal id="5YearMemberDiscount" value="0.02"/>
-  <Decimal id="BirthDataDiscount" value="0.01"/>
+  <Decimal id="BirthDateDiscount" value="0.01"/>
 
-  <ObjectLookup id="Customer" objectId="currentCustomer" member="Age"/>
-  <Decimal id="age60" value="60"/>
-  <Decimal id="Age60AtLeast60Discount" value="0.12"/>
-  <Logic>
-    <If>
-      <And>
-        <GreaterThanEqualTo leftId="currentCustomer" rightId="age60"/>
-      </And>
-      <Do>
-        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
-          <Argument type="Decimal"/>
-        </ObjectLookup>
-        <ObjectLookup id="DiscountSum" type="NxBRE.Util.Maths" member="Sum">
-          <Argument valueId="Age60AtLeast60Discount"/>
-          <Argument valueId="currentSale"/>
-        </ObjectLookup>
-      </Do>
-    </If>
-  </Logic>
-  <Decimal id="VeteranDiscount" value="0.05"/>
-  <Logic>
-    <If>
-      <And>
-        <IsTrue valueId="currentCustomer"/>
-      </And>
-      <Do>
-        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
-          <Argument type="Decimal"/>
-        </ObjectLookup>
-        <Increment id="VeteranDiscount"/>
-      </Do>
-    </If>
-  </Logic>
-  <Decimal id="IsCasualtyKinDiscount" value="0.07"/>
-  <Logic>
-    <If>
-      <And>
-        <IsTrue valueId="currentCustomer"/>
-      </And>
-      <Do>
-        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
-          <Argument type="Decimal"/>
-        </ObjectLookup>
-        <Increment id="IsCasualtyKinDiscount"/>
-      </Do>
-    </If>
-  </Logic>
+
   <Decimal id="TotalIncome10000" value="10000"/>
-  <Decimal id="TotalIncome50000" value="10000"/>
-  <Decimal id="TotalIncome100000" value="10000"/>
-  <Decimal id="TotalIncome10000Discount" value="0.05"/>
-  <Decimal id="TotalIncome50000Discount" value="0.07"/>
-  <Decimal id="TotalIncome100000Discount" value="0.1"/>
-  <Logic>
-    <If>
-      <And>
-        <GreaterThanEqualTo leftId="currentCustomer" rightId="TotalIncome10000"/>
-      </And>
-      <Do>
-        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
-          <Argument type="Decimal"/>
-        </ObjectLookup>
-        <Increment id="TotalIncome10000Discount"/>
-      </Do>
-    </If>
-    <ElseIf>
-      <And>
-        <GreaterThanEqualTo leftId="currentCustomer" rightId="TotalIncome50000"/>
-      </And>
-      <Do>
-        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
-          <Argument type="Decimal"/>
-        </ObjectLookup>
-        <Increment id="TotalIncome50000Discount"/>
-      </Do>
-    </ElseIf>
-    <ElseIf>
-      <And>
-        <GreaterThanEqualTo leftId="currentCustomer" rightId="TotalIncome100000"/>
-      </And>
-      <Do>
-        <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
-          <Argument type="Decimal"/>
-        </ObjectLookup>
-        <Increment id="TotalIncome100000Discount"/>
-      </Do>
-    </ElseIf>
-  </Logic>
+  <Decimal id="TotalIncome50000" value="50000"/>
+  <Decimal id="TotalIncome100000" value="100000"/>
+
+  <Set id="Age_60_Rule">
+    <Integer id="age60" value="60"/>
+    <Decimal id="Age60AtLeast60Discount" value="0.12"/>
+    <ObjectLookup id="Customer" objectId="currentCustomer" member="Age" />
+    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <Logic>
+      <If>
+        <And>
+          <GreaterThanEqualTo leftId="Customer" rightId="age60" />
+        </And>
+        <Do>
+          <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
+            <Argument type="Decimal" valueId="Sale" />
+            <Argument valueId="Age60AtLeast60Discount" type="Decimal" />
+          </ObjectLookup>
+          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+            <Argument type="Decimal" valueId="AddDiscount" />
+          </ObjectLookup>
+          <Evaluate id="AddRule">
+            <Parameter name="ruleName" value="Age_60_Rule"/>
+          </Evaluate>
+        </Do>
+      </If>
+    </Logic>
+  </Set>
+  <Set id="Veteran_Rule">
+    <Decimal id="VeteranDiscount" value="0.05"/>
+    <ObjectLookup id="Customer" objectId="currentCustomer" member="IsVeteran" />
+    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <Logic>
+      <If>
+        <And>
+          <IsTrue valueId="Customer"/>
+        </And>
+        <Do>
+          <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
+            <Argument type="Decimal" valueId="Sale" />
+            <Argument valueId="VeteranDiscount" type="Decimal" />
+          </ObjectLookup>
+          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+            <Argument type="Decimal" valueId="AddDiscount" />
+          </ObjectLookup>
+          <Evaluate id="AddRule">
+            <Parameter name="ruleName" value="Veteran_Rule"/>
+          </Evaluate>
+        </Do>
+      </If>
+    </Logic>
+  </Set>
+  <Set id="Casualty_Kin_Rule">
+    <Decimal id="CasualtyKinDiscount" value="0.07"/>
+    <ObjectLookup id="Customer" objectId="currentCustomer" member="IsCasualtyKin" />
+    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <Logic>
+      <If>
+        <And>
+          <IsTrue valueId="Customer"/>
+        </And>
+        <Do>
+          <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
+            <Argument type="Decimal" valueId="Sale" />
+            <Argument valueId="CasualtyKinDiscount" type="Decimal" />
+          </ObjectLookup>
+          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+            <Argument type="Decimal" valueId="AddDiscount" />
+          </ObjectLookup>
+          <Evaluate id="AddRule">
+            <Parameter name="ruleName" value="Casualty_Kin_Rule"/>
+          </Evaluate>
+        </Do>
+      </If>
+    </Logic>
+  </Set>
+
+  <Set id="Total_Income_Greater_10000_Rule">
+
+    <Decimal id="TotalIncome10000Discount" value="0.05"/>
+    <ObjectLookup id="Customer" objectId="currentCustomer" member="TotalSale" />
+    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <Logic>
+      <If>
+        <And>
+          <Between leftId="TotalIncome10000" rightId="TotalIncome50000" valueId="Customer" />
+        </And>
+        <Do>
+          <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
+            <Argument type="Decimal" valueId="Sale" />
+            <Argument valueId="TotalIncome10000Discount" type="Decimal" />
+          </ObjectLookup>
+          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+            <Argument type="Decimal" valueId="AddDiscount" />
+          </ObjectLookup>
+          <Evaluate id="AddRule">
+            <Parameter name="ruleName" value="Total_Income_Greater_10000_Rule"/>
+          </Evaluate>
+        </Do>
+      </If>
+    </Logic>
+  </Set>
+  <Set id="Total_Income_Greater_50000_Rule">
+    <Decimal id="TotalIncome50000Discount" value="0.07"/>
+    <ObjectLookup id="Customer" objectId="currentCustomer" member="TotalSale" />
+    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <Logic>
+      <If>
+        <And>
+          <Between leftId="TotalIncome50000" rightId="TotalIncome100000" valueId="Customer" />
+        </And>
+        <Do>
+          <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
+            <Argument type="Decimal" valueId="Sale" />
+            <Argument valueId="TotalIncome50000Discount" type="Decimal" />
+          </ObjectLookup>
+          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+            <Argument type="Decimal" valueId="AddDiscount" />
+          </ObjectLookup>
+          <Evaluate id="AddRule">
+            <Parameter name="ruleName" value="Total_Income_Greater_50000_Rule"/>
+          </Evaluate>
+        </Do>
+      </If>
+    </Logic>
+  </Set>
+  <Set id="Total_Income_Greater_100000_Rule">
+    <Decimal id="TotalIncome100000Discount" value="0.1"/>
+    <ObjectLookup id="Customer" objectId="currentCustomer" member="TotalSale" />
+    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <Logic>
+      <If>
+        <And>
+          <GreaterThanEqualTo leftId="Customer" rightId="TotalIncome100000"/>
+        </And>
+        <Do>
+          <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
+            <Argument type="Decimal" valueId="Sale" />
+            <Argument valueId="TotalIncome100000Discount" type="Decimal" />
+          </ObjectLookup>
+          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+            <Argument type="Decimal" valueId="AddDiscount" />
+          </ObjectLookup>
+          <Evaluate id="AddRule">
+            <Parameter name="ruleName" value="Total_Income_Greater_100000_Rule"/>
+          </Evaluate>
+        </Do>
+      </If>
+    </Logic>
+  </Set>
+
+
 
 
 </xBusinessRules>

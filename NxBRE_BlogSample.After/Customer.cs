@@ -7,6 +7,13 @@ namespace NxBRE_BlogSample.After
         public string Name { get; set; }
         public string SurName { get; set; }
 
+        public string FullName
+        {
+            get { return $"{Name} {SurName}"; }
+        }
+
+
+
         public decimal TotalSale { get; set; }
 
         public bool IsVeteran { get; set; }
@@ -26,7 +33,7 @@ namespace NxBRE_BlogSample.After
 
         public override string ToString()
         {
-            return $"Name: {Name}, SurName: {SurName}, TotalSale: {TotalSale}, IsVeteran: {IsVeteran}, IsCasualtyKin: {IsCasualtyKin},{Age}, CreatedDate: {CreatedDate}";
+            return $"FullName {FullName}, TotalSale: {TotalSale}, IsVeteran: {IsVeteran}, IsCasualtyKin: {IsCasualtyKin},{Age}, CreatedDate: {CreatedDate}";
         }
     }
 }

@@ -1,14 +1,31 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+
 namespace NxBRE_BlogSample.After
 {
     public class Sale
     {
         public Customer Customer { get; set; }
 
+        const string Empty = "Empty";
+
+        public Sale()
+        {
+            DiscountList = new List<string>();
+        }
+
         public override string ToString()
         {
-            return $"Customer: {Customer.Name} {Customer.SurName}, Discount: {Discount}";
+            return DiscountList.Any() ? $"Customer: {Customer} Discount: {Discount} \nDiscountList: { string.Join(";", DiscountList)}" : $"Customer: {Customer.FullName} Discount: {Discount} DiscountList: { Empty}";
         }
 
         public decimal Discount { get; set; }
+
+        public IList<string> DiscountList { get; private set; }
+
+
     }
 }
