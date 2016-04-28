@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NxBRE_BlogSample", "NxBRE_B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NxBRE_BlogSample.After", "NxBRE_BlogSample.After\NxBRE_BlogSample.After.csproj", "{4FEFF33E-E7C7-46B4-8F3D-88E273F56917}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9BF41C54-8C98-4B40-AE54-36EFD78764DE}"
+	ProjectSection(SolutionItems) = preProject
+		Common\NxBRE.dll = Common\NxBRE.dll
+		Common\NxBRE.dll.config = Common\NxBRE.dll.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NxBRE">
-      <HintPath>..\..\..\..\..\Desktop\nxbre-3_2_0 .Net V4.0,V4.5,V4.5.1\Source\bin\Debug\NxBRE.dll</HintPath>
+      <HintPath>..\Common\NxBRE.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
