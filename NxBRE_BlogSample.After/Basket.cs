@@ -23,7 +23,7 @@ namespace NxBRE_BlogSample.After
 
         public decimal TotalDiscount
         {
-            get { return Products.Any() ? (TotalPrice * DiscountRate)/100 : 0m; }
+            get { return Products.Any() ? (TotalPrice * DiscountRate) / 100 : 0m; }
         }
 
 
@@ -37,7 +37,10 @@ namespace NxBRE_BlogSample.After
 
         public override string ToString()
         {
-            return DiscountList.Any() ? $"Customer: {Customer} Discount: {DiscountRate} \t\nDiscountList: { string.Join(";", DiscountList)}" : $"Customer: {Customer.FullName} Discount: {DiscountRate} DiscountList: { Empty}";
+            return DiscountList.Any() ? $"Customer: {Customer} " +
+                                        $"Discount: {DiscountRate} " +
+                                        $"\t\nDiscountList: { string.Join(";", DiscountList)}" : $"Customer: {Customer.FullName} Discount: {DiscountRate} DiscountList: { Empty}" +
+                                        $"\t\nProducts {string.Join(";", Products.Select(s => s.Name))}";
         }
 
 
