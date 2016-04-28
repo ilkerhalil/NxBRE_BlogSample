@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
 
-namespace NxBRE_BlogSample.After
+namespace NxBRE_BlogSample.After.Factories
 {
     internal static class CustomerFactory
     {
         public static IEnumerable<Customer> CreateSampleData()
+        {
+            return CreateCustomers();
+        }
+
+        private static List<Customer> CreateCustomers()
         {
             return new List<Customer>
             {

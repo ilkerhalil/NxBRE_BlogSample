@@ -33,7 +33,7 @@ namespace NxBRE_BlogSample.After
 
         public override string ToString()
         {
-            return $"FullName {FullName}, TotalSale: {TotalSale}, IsVeteran: {IsVeteran}, IsCasualtyKin: {IsCasualtyKin},{Age}, CreatedDate: {CreatedDate}";
+            return $"FullName {FullName}, TotalSale: {TotalSale}, IsVeteran: {IsVeteran}, IsCasualtyKin: {IsCasualtyKin},{Age}, CreatedDate: {CreatedDate.ToShortDateString()}";
         }
     }
 }

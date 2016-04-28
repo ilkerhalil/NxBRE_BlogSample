@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NxBRE_BlogSample.After.Factories;
 
 namespace NxBRE_BlogSample.After
 {
@@ -8,20 +9,18 @@ namespace NxBRE_BlogSample.After
     {
         private static void Main(string[] args)
         {
-            foreach (var customer in CustomerFactory.CreateSampleData().OrderBy(or => or.Age))
+            var baskets = BasketFactory.CreateBaskets().ToList();
+            foreach (var basket in baskets)
             {
-                var sale = new Sale
-                {
-                    Customer = customer
-                };
-                var calculateDiscount = new CalculateDiscount(sale);
+                var calculateDiscount = new CalculateDiscount(basket);
                 calculateDiscount.Calcutale();
-                Console.WriteLine(sale);
+                Console.WriteLine(basket);
             }
+
             Console.ReadKey();
         }
 
-        
+
 
     }
 }

@@ -14,7 +14,7 @@
     <Integer id="age60" value="60"/>
     <Decimal id="Age60AtLeast60Discount" value="0.12"/>
     <ObjectLookup id="Customer" objectId="currentCustomer" member="Age" />
-    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate" />
     <Logic>
       <If>
         <And>
@@ -22,10 +22,10 @@
         </And>
         <Do>
           <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
-            <Argument type="Decimal" valueId="Sale" />
+            <Argument type="Decimal" valueId="Basket" />
             <Argument valueId="Age60AtLeast60Discount" type="Decimal" />
           </ObjectLookup>
-          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate">
             <Argument type="Decimal" valueId="AddDiscount" />
           </ObjectLookup>
           <Evaluate id="AddRule">
@@ -38,7 +38,7 @@
   <Set id="Veteran_Rule">
     <Decimal id="VeteranDiscount" value="0.05"/>
     <ObjectLookup id="Customer" objectId="currentCustomer" member="IsVeteran" />
-    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate" />
     <Logic>
       <If>
         <And>
@@ -46,10 +46,10 @@
         </And>
         <Do>
           <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
-            <Argument type="Decimal" valueId="Sale" />
+            <Argument type="Decimal" valueId="Basket" />
             <Argument valueId="VeteranDiscount" type="Decimal" />
           </ObjectLookup>
-          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate">
             <Argument type="Decimal" valueId="AddDiscount" />
           </ObjectLookup>
           <Evaluate id="AddRule">
@@ -62,7 +62,7 @@
   <Set id="Casualty_Kin_Rule">
     <Decimal id="CasualtyKinDiscount" value="0.07"/>
     <ObjectLookup id="Customer" objectId="currentCustomer" member="IsCasualtyKin" />
-    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate" />
     <Logic>
       <If>
         <And>
@@ -70,10 +70,10 @@
         </And>
         <Do>
           <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
-            <Argument type="Decimal" valueId="Sale" />
+            <Argument type="Decimal" valueId="Basket" />
             <Argument valueId="CasualtyKinDiscount" type="Decimal" />
           </ObjectLookup>
-          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate">
             <Argument type="Decimal" valueId="AddDiscount" />
           </ObjectLookup>
           <Evaluate id="AddRule">
@@ -88,7 +88,7 @@
 
     <Decimal id="TotalIncome10000Discount" value="0.05"/>
     <ObjectLookup id="Customer" objectId="currentCustomer" member="TotalSale" />
-    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate" />
     <Logic>
       <If>
         <And>
@@ -96,10 +96,10 @@
         </And>
         <Do>
           <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
-            <Argument type="Decimal" valueId="Sale" />
+            <Argument type="Decimal" valueId="Basket" />
             <Argument valueId="TotalIncome10000Discount" type="Decimal" />
           </ObjectLookup>
-          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate">
             <Argument type="Decimal" valueId="AddDiscount" />
           </ObjectLookup>
           <Evaluate id="AddRule">
@@ -112,7 +112,7 @@
   <Set id="Total_Income_Greater_50000_Rule">
     <Decimal id="TotalIncome50000Discount" value="0.07"/>
     <ObjectLookup id="Customer" objectId="currentCustomer" member="TotalSale" />
-    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate" />
     <Logic>
       <If>
         <And>
@@ -120,10 +120,10 @@
         </And>
         <Do>
           <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
-            <Argument type="Decimal" valueId="Sale" />
+            <Argument type="Decimal" valueId="Basket" />
             <Argument valueId="TotalIncome50000Discount" type="Decimal" />
           </ObjectLookup>
-          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate">
             <Argument type="Decimal" valueId="AddDiscount" />
           </ObjectLookup>
           <Evaluate id="AddRule">
@@ -136,7 +136,7 @@
   <Set id="Total_Income_Greater_100000_Rule">
     <Decimal id="TotalIncome100000Discount" value="0.1"/>
     <ObjectLookup id="Customer" objectId="currentCustomer" member="TotalSale" />
-    <ObjectLookup id="Sale" objectId="currentSale" member="Discount" />
+    <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate" />
     <Logic>
       <If>
         <And>
@@ -144,10 +144,10 @@
         </And>
         <Do>
           <ObjectLookup id="AddDiscount" type="NxBRE.Util.Maths" member="Add">
-            <Argument type="Decimal" valueId="Sale" />
+            <Argument type="Decimal" valueId="Basket" />
             <Argument valueId="TotalIncome100000Discount" type="Decimal" />
           </ObjectLookup>
-          <ObjectLookup id="Sale" objectId="currentSale" member="Discount">
+          <ObjectLookup id="Basket" objectId="currentBasket" member="DiscountRate">
             <Argument type="Decimal" valueId="AddDiscount" />
           </ObjectLookup>
           <Evaluate id="AddRule">

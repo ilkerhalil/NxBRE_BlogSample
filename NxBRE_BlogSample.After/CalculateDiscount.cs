@@ -13,22 +13,22 @@ namespace NxBRE_BlogSample.After
         private readonly IFlowEngine _flowEngine;
         private const string AXmlFile = "Discount.xbre";
 
-        public CalculateDiscount(Sale sale)
+        public CalculateDiscount(Basket basket)
         {
             _flowEngine = new BREFactoryConsole(SourceLevels.Error, SourceLevels.All).NewBRE(new XBusinessRulesFileDriver(AXmlFile));
             if (_flowEngine == null) throw new Exception("BRE Not Properly Initialized!");
-            _flowEngine.RuleContext.SetObject("currentSale", sale);
-            _flowEngine.RuleContext.SetObject("currentCustomer", sale.Customer);
+            _flowEngine.RuleContext.SetObject("currentBasket", basket);
+            _flowEngine.RuleContext.SetObject("currentCustomer", basket.Customer);
             _flowEngine.RuleContext.SetFactory("AddRule", new BRERuleFactory(AddRule));
 
         }
 
         public object AddRule(IBRERuleContext aBrc, IDictionary aMap, object aStep)
         {
-            var sale = aBrc.GetObject("currentSale") as Sale;
+            var basket = aBrc.GetObject("currentBasket") as Basket;
             var ruleName = (string)Reflection.CastValue(aMap["ruleName"], typeof(string));
-            if (!string.IsNullOrEmpty(ruleName)) sale.DiscountList.Add(ruleName);
-            return sale;
+            if (!string.IsNullOrEmpty(ruleName)) basket.DiscountList.Add(ruleName);
+            return basket;
         }
 
 
