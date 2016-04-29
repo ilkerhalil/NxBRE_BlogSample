@@ -11,7 +11,7 @@ namespace NxBRE_BlogSample.After
 
         public override string ToString()
         {
-            return $"Id: {Id}, Name: {Name}, Price: {Price:C0}";
+            return $"Id: {Id}, Name: {Name}, Price: {Price}";
         }
     }
 }

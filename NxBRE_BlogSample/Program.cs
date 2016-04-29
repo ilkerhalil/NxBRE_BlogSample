@@ -4,17 +4,7 @@ using System.Collections.Generic;
 namespace NxBRE_BlogSample
 {
     internal static class Program
-    {
-        //Yıllık bilet satışı 10000 TL'ın üzerindeyse %5
-        //Yıllık bilet satışı 50000 TL'ın üzerindeyse %7
-        //Yıllık bilet satışı 100000 TL'ın üzerindeyse %10
-        //5 Yıllık müşterilere %2
-        //10 Yıllık müşterilere %3
-        //60 yaşından büyük müşterilere %12
-        //Doğum günü bugün olanlara %1
-        //Gazilere %5
-        //Şehit yakınlarına %7
-
+    { 
 
         private static void Main(string[] args)
         {

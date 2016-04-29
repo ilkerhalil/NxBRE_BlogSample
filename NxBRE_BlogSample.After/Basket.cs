@@ -21,13 +21,7 @@ namespace NxBRE_BlogSample.After
 
         public decimal DiscountRate { get; set; }
 
-        public decimal TotalDiscount
-        {
-            get { return Products.Any() ? (TotalPrice * DiscountRate) / 100 : 0m; }
-        }
-
-
-        public decimal TotalPrice
+        public decimal SubTotal
         {
             get
             {
@@ -35,14 +29,19 @@ namespace NxBRE_BlogSample.After
             }
         }
 
-        public override string ToString()
+        public decimal TotalDiscount
         {
-            return DiscountList.Any() ? $"Customer: {Customer} " +
-                                        $"Discount: {DiscountRate} " +
-                                        $"\t\nDiscountList: { string.Join(";", DiscountList)}" : $"Customer: {Customer.FullName} Discount: {DiscountRate} DiscountList: { Empty}" +
-                                        $"\t\nProducts {string.Join(";", Products.Select(s => s.Name))}";
+            get { return Products.Any() ? SubTotal * DiscountRate : 0m; }
         }
 
+        public decimal TotalPrice
+        {
+            get { return SubTotal - TotalDiscount; }
+        }
 
+        public override string ToString()
+        {
+            return $"DiscountRate: {DiscountRate}, TotalDiscount: {TotalDiscount}, TotalPrice: {SubTotal}";
+        }
     }
 }
